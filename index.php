@@ -1,16 +1,15 @@
 <?php
-require_once('templates/header.php'); // syntax error!!, wrong relative path was there before, now fixed.
-
+require_once('templates/header.php'); 
 $questions = array();
-$file_path = 'data/leetcode_tracker.csv'; // syntax error!!, wrong relative path was there before, now fixed.
+$file_path = 'data/leetcode_tracker.csv'; 
 
 if (file_exists($file_path)) {
   $handle = fopen($file_path, 'r');
 
   while (($data = fgetcsv($handle)) !== false) {
     list($id, $title, $difficulty, $link, $date) = $data;
-    $questions[] = [ // since this is an associative array, it should be in key-value pairs, replaced ':' to '=>', is this a syntax error or runtime error?? well I'm not sure, but yeah can be
-      'id' => $id, // syntax error, missed a comma, array!!
+    $questions[] = [
+      'id' => $id, 
       'title' => $title,
       'difficulty' => $difficulty,
       'link' => $link,
@@ -25,7 +24,7 @@ if (file_exists($file_path)) {
   <div class="card mb-4">
     <div class="card-body">
       <h2 class="card-title">Add New Question</h2>
-      <form action="process-form.php" method="POST"> <!--remove '../' which is going to the root directory, index and process-form are in the same file, logic error-->
+      <form action="process-form.php" method="POST">
         <input type="hidden" name="action" value="add">
         <div class="mb-3">
           <label for="title" class="form-label">Problem Title:</label>
@@ -64,7 +63,7 @@ if (file_exists($file_path)) {
       </tr>
     </thead>
     <tbody>
-      <?php foreach ($questions as $question): ?> <!--runtime error-->
+      <?php foreach ($questions as $question): ?> 
         <tr>
           <td><?= htmlspecialchars($question['id']) ?></td>
           <td><?= htmlspecialchars($question['title']) ?></td>
@@ -77,7 +76,7 @@ if (file_exists($file_path)) {
           <td><a href="<?= htmlspecialchars($question['link']) ?>" target="_blank" class="btn btn-link">View Problem</a></td>
           <td><?= htmlspecialchars($question['date']) ?></td>
           <td>
-            <form action="process-form.php" method="POST" class="d-inline"> <!-- logic error, wrong method, should be POST instead of PUT-->
+            <form action="process-form.php" method="POST" class="d-inline"> 
               <input type="hidden" name="action" value="delete">
               <input type="hidden" name="id" value="<?= $question['id'] ?>">
               <button type="submit" class="btn btn-danger btn-sm">Delete</button>
@@ -90,4 +89,4 @@ if (file_exists($file_path)) {
 </div>
 </div>
 
- <?php require_once('templates/footer.php'); ?> <!-- error found, syntax error, what is require_one?? should be require_once!!, awwwww!!! -->
+ <?php require_once('templates/footer.php'); ?>
