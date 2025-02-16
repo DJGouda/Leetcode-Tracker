@@ -1,7 +1,7 @@
 <?php
-if ($_SERVER['REQUEST_METHOD'] === 'POST') { // should be REQUEST_METHOD, logic error
-  $action = $_POST['action']; // should be $_POST, logic error
-  $file_path = 'data/leetcode_tracker.csv'; // '/' not be there in the front, logic error
+if ($_SERVER['REQUEST_METHOD'] === 'POST') { 
+  $action = $_POST['action']; 
+  $file_path = 'data/leetcode_tracker.csv'; 
 
   if ($action === 'add') {
     $last_id = 0;
@@ -9,7 +9,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') { // should be REQUEST_METHOD, logic 
       $handle = fopen($file_path, 'r');
       while (($data = fgetcsv($handle)) !== false) {
         if (is_numeric($data[0])) {
-          $last_id = max($last_id, (int)$data[0]); // added max() to reject min values
+          $last_id = max($last_id, (int)$data[0]); 
         }
       }
     fclose($handle);
@@ -19,21 +19,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') { // should be REQUEST_METHOD, logic 
     $title = $_POST['title'];
     $difficulty = $_POST['difficulty'];
     $link = $_POST['link'];
-    $date = $_POST['date']; // there was ;; two semi-colons
+    $date = $_POST['date'];
 
-    $handle = fopen($file_path, 'a'); // append it instead write mode, logic error
+    $handle = fopen($file_path, 'a'); 
     if ($handle) {
       fputcsv($handle,fields:[$id, $title, $difficulty, $link, $date]);
-      fclose($handle); // missed a semi-colon
+      fclose($handle); 
     }
-  } elseif ($action === 'delete') { // logic error 'remove' and 'delete' different in value and action
-    $id = $_POST['id']; //should be $_POST instead of $POST
+  } elseif ($action === 'delete') { 
+    $id = $_POST['id']; 
 
     $entries = [];
     $handle = fopen($file_path, 'r');
     if ($handle) {
       while (($data = fgetcsv($handle)) !== false) {
-        if ($data[0] != $id) { // should be != instead of !==, datatype are not same, logic error
+        if ($data[0] != $id) { 
           $entries[] = $data;
         }
       }
